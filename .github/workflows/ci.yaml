@@ -22,15 +22,17 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Set image tag
-        run: echo IMAGE_TAG=${{ matrix.version }}-$(echo ${{ matrix.image }} | tr ':' '-') >> $GITHUB_ENV
+      - name: Set image name
+        run: echo IMAGE_NAME=ameir/ruby:${{ matrix.version }}-$(echo ${{ matrix.image }} | tr ':' '-') >> $GITHUB_ENV
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           platforms: linux/amd64
           #platforms: linux/amd64,linux/arm64
           build-args: |
+            BUILDKIT_INLINE_CACHE=1
             IMAGE=${{ matrix.image }}
             RUBY_VERSION=${{ matrix.version }}
+          cache-from: ${{ env.IMAGE_NAME }}
           push: true
-          tags: ameir/ruby:${{ env.IMAGE_TAG }}
+          tags: ${{ env.IMAGE_NAME }}

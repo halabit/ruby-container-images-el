@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         version: ["2.6.8", "3.0.5", "3.2.0"]
-        image: [almalinux:8, almalinux:9, amazonlinux:2022]
+        image: ["almalinux:8", "almalinux:9", "amazonlinux:2022"]
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU

@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1.4
-FROM amazonlinux:2022 as ruby
+ARG IMAGE
+FROM $IMAGE as ruby
 ARG RUBY_VERSION=2.6.8
 WORKDIR /tmp
 RUN set -x; 

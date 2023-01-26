@@ -10,5 +10,5 @@ RUN set -x; \
     yum clean all
 RUN  wget -O rb.tgz https://github.com/rbenv/ruby-build/archive/refs/tags/v20221225.tar.gz && \
   tar xvfz rb.tgz && PREFIX=/usr/local ./ruby-build-*/install.sh && \
-  ruby-build --verbose $RUBY_VERSION /usr/local/ruby-${RUBY_VERSION} && \
-  ln -sfv /usr/local/ruby-${RUBY_VERSION}/bin/ruby /usr/bin/ruby
+  ruby-build --verbose $RUBY_VERSION /usr/local/ruby && \
+  ln -sfv /usr/local/ruby/bin/ruby /usr/bin/ruby

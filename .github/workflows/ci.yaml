@@ -23,14 +23,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Set image tag
-        run: echo IMAGE_TAG=${{ matrix.version }}:$(echo ${{ matrix.os }} | tr ':' '-') >> $GITHUB_ENV
+        run: echo IMAGE_TAG=${{ matrix.version }}-$(echo ${{ matrix.image }} | tr ':' '-') >> $GITHUB_ENV
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           platforms: linux/amd64
           #platforms: linux/amd64,linux/arm64
           build-args: |
-            IMAGE=${{ matrix.os }}
+            IMAGE=${{ matrix.image }}
             RUBY_VERSION=${{ matrix.version }}
           push: true
           tags: ameir/ruby:${{ env.IMAGE_TAG }}

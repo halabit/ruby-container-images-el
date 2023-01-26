@@ -16,6 +16,8 @@ RUN git clone git://github.com/rbenv/ruby-build.git && \
 
 ARG IMAGE
 FROM $IMAGE
+RUN yum install -y git-core procps-ng glibc gcc gcc-c++ cmake openssl-devel && \
+    yum clean all
 COPY --from=build --link /usr/local/ruby/ /usr/local/ruby/
 ENV PATH="/usr/local/ruby/bin:${PATH}"
 RUN ln -sfv /usr/local/ruby/bin/ruby /usr/bin/ruby

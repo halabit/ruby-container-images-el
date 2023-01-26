@@ -2,7 +2,7 @@
 ARG IMAGE
 FROM $IMAGE as ruby
 ARG RUBY_VERSION=2.6.8
-ARG YUM_ARGS=""
+ENV YUM_ARGS=""
 WORKDIR /tmp
 RUN set -x; 
 RUN test -f /etc/yum.repos.d/*crb*.repo && YUM_ARGS="--enablerepo='*'" || true

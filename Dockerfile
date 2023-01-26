@@ -2,9 +2,11 @@
 ARG IMAGE
 FROM $IMAGE as ruby
 ARG RUBY_VERSION=2.6.8
+ARG YUM_ARGS=""
 WORKDIR /tmp
 RUN set -x; 
-RUN yum --enablerepo='*' install -y patch bzip2 openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip perl gcc gcc-c++ cmake && \
+RUN test -f /etc/yum.repos.d/*crb*.repo && YUM_ARGS="--enablerepo='*'" || true
+RUN yum $YUM_ARGS install -y patch bzip2 openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip perl gcc gcc-c++ cmake && \
     yum clean all
 RUN  wget -O rb.tgz https://github.com/rbenv/ruby-build/archive/refs/tags/v20221225.tar.gz && \
   tar xvfz rb.tgz && PREFIX=/usr/local ./ruby-build-*/install.sh && \

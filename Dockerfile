@@ -7,7 +7,7 @@ WORKDIR /tmp
 RUN set -x; \
     yum install -y yum-utils && \
     (for r in powertools crb; do yum config-manager --enable $r; done || true) && \
-    yum install -y git-core patch bzip2 openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip gcc gcc-c++ cmake epel-release perl && \
+    yum install -y git-core patch bzip2 libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip gcc gcc-c++ cmake epel-release perl && \
     yum install -y jemalloc-devel && \
     yum clean all
 RUN git clone https://github.com/rbenv/ruby-build.git && \

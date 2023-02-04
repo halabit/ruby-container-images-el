@@ -7,7 +7,7 @@ WORKDIR /tmp
 RUN set -x; \
     yum install -y yum-utils && \
     (for r in powertools crb; do yum config-manager --enable $r; done || true) && \
-    yum install -y git-core patch bzip2 libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip gcc gcc-c++ cmake epel-release perl && \
+    yum install -y git-core patch bzip2 openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip gcc gcc-c++ cmake epel-release perl && \
     yum install -y jemalloc-devel && \
     yum clean all
 RUN git clone https://github.com/rbenv/ruby-build.git && \
@@ -22,5 +22,6 @@ COPY --from=build --link /usr/lib64/libjemalloc.so.2 /usr/lib64/
 COPY --from=build --link /usr/local/ruby/ /usr/local/ruby/
 ENV PATH="/usr/local/ruby/bin:${PATH}"
 RUN ln -sfv /usr/local/ruby/bin/ruby /usr/bin/ruby && \
+    (test -d /usr/local/ruby/openssl/lib/ && echo "/usr/local/ruby/openssl/lib/" > /etc/ld.so.conf.d/ruby.conf); \
     ldconfig -v && \
     ruby -v

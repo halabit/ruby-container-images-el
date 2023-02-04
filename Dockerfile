@@ -2,6 +2,7 @@
 ARG IMAGE
 FROM $IMAGE as build
 ARG RUBY_VERSION
+ARG RUBY_CONFIGURE_OPTS="--enable-static --disable-shared --with-jemalloc --disable-install-doc"
 WORKDIR /tmp
 RUN set -x; \
     yum install -y yum-utils && \
@@ -11,7 +12,7 @@ RUN set -x; \
     yum clean all
 RUN git clone https://github.com/rbenv/ruby-build.git && \
     ./ruby-build/install.sh && \
-    RUBY_CONFIGURE_OPTS="--enable-static --disable-shared --with-jemalloc --disable-install-doc" ruby-build --verbose $RUBY_VERSION /usr/local/ruby && \
+    ruby-build --verbose $RUBY_VERSION /usr/local/ruby && \
     ln -sfv /usr/local/ruby/bin/ruby /usr/bin/ruby
 
 

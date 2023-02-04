@@ -6,11 +6,11 @@ WORKDIR /tmp
 RUN set -x; \
     yum install -y yum-utils && \
     (for r in powertools crb; do yum config-manager --enable $r; done || true) && \
-    yum install -y git-core patch bzip2 openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip perl gcc gcc-c++ cmake && \
+    yum install -y git-core patch bzip2 openssl-devel jemalloc-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip perl gcc gcc-c++ cmake && \
     yum clean all
 RUN git clone https://github.com/rbenv/ruby-build.git && \
     ./ruby-build/install.sh && \
-    ruby-build --verbose $RUBY_VERSION /usr/local/ruby && \
+    RUBY_CONFIGURE_OPTS=--with-jemalloc ruby-build --verbose $RUBY_VERSION /usr/local/ruby && \
     ln -sfv /usr/local/ruby/bin/ruby /usr/bin/ruby
 
 

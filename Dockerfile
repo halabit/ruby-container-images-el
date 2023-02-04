@@ -13,7 +13,6 @@ RUN set -x; \
 RUN git clone https://github.com/rbenv/ruby-build.git && \
     ./ruby-build/install.sh && \
     ruby-build --verbose $RUBY_VERSION /usr/local/ruby && \
-    rm -rf /usr/local/ruby/share && \
     ln -sfv /usr/local/ruby/bin/ruby /usr/bin/ruby
 
 

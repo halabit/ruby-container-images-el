@@ -1,12 +1,14 @@
 # syntax=docker/dockerfile:1.4
 ARG IMAGE
 FROM $IMAGE as build
-ARG RUBY_VERSION=2.6.8
+ARG RUBY_VERSION
+ARG TARGETARCH
 WORKDIR /tmp
 RUN set -x; \
     yum install -y yum-utils && \
     (for r in powertools crb; do yum config-manager --enable $r; done || true) && \
-    yum install -y git-core patch bzip2 openssl-devel jemalloc-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip perl gcc gcc-c++ cmake && \
+    yum install -y git-core patch bzip2 openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip perl gcc gcc-c++ cmake \
+        https://kojipkgs.fedoraproject.org/packages/jemalloc/5.3.0/3.fc38/${TARGETARCH}/jemalloc-5.3.0-3.fc38.${TARGETARCH}.rpm && \
     yum clean all
 RUN git clone https://github.com/rbenv/ruby-build.git && \
     ./ruby-build/install.sh && \

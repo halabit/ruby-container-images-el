@@ -5,10 +5,9 @@ ARG RUBY_VERSION
 ARG RUBY_CONFIGURE_OPTS="--with-jemalloc --disable-install-doc"
 WORKDIR /tmp
 RUN set -x; \
-    yum install -y yum-utils && \
+    yum install -y yum-utils epel-release && \
     (for r in powertools crb; do yum config-manager --enable $r; done || true) && \
-    yum install -y git-core patch bzip2 openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip gcc gcc-c++ cmake epel-release perl rust && \
-    yum install -y jemalloc-devel && \
+    yum install -y git-core patch bzip2 openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip gcc gcc-c++ cmake perl rust jemalloc-devel && \
     yum clean all
 RUN git clone https://github.com/rbenv/ruby-build.git && \
     ./ruby-build/install.sh && \

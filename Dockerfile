@@ -6,8 +6,8 @@ WORKDIR /tmp
 RUN set -x; \
     yum install -y yum-utils && \
     (for r in powertools crb; do yum config-manager --enable $r; done || true) && \
-    yum install -y git-core patch bzip2 openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip perl gcc gcc-c++ cmake \
-        https://kojipkgs.fedoraproject.org/packages/jemalloc/5.3.0/3.fc38/$(uname -m)/jemalloc-5.3.0-3.fc38.$(uname -m).rpm && \
+    yum install -y git-core patch bzip2 openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel wget tar gzip perl gcc gcc-c++ cmake epel-release && \
+    yum install -y jemalloc-devel && \
     yum clean all
 RUN git clone https://github.com/rbenv/ruby-build.git && \
     ./ruby-build/install.sh && \

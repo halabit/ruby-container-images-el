@@ -2,7 +2,7 @@
 ARG IMAGE
 FROM $IMAGE as build
 ARG RUBY_VERSION
-ARG RUBY_CONFIGURE_OPTS="--enable-static --disable-shared --with-jemalloc --disable-install-doc"
+ARG RUBY_CONFIGURE_OPTS="--with-jemalloc --disable-install-doc"
 WORKDIR /tmp
 RUN set -x; \
     yum install -y yum-utils && \

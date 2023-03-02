@@ -18,6 +18,7 @@ RUN git clone https://github.com/rbenv/ruby-build.git && \
 
 ARG IMAGE
 FROM $IMAGE
+COPY --from=build --link /usr/include/jemalloc/ /usr/include/jemalloc/
 COPY --from=build --link /usr/lib64/libjemalloc.so.2 /usr/lib64/
 COPY --from=build --link /usr/local/ruby/ /usr/local/ruby/
 ENV PATH="/usr/local/ruby/bin:${PATH}"

@@ -38,4 +38,6 @@ jobs:
             RUBY_VERSION=${{ matrix.version }}
           cache-from: ${{ env.IMAGE_NAME }}
           push: true
-          tags: ${{ env.IMAGE_NAME }} ${{ env.IMAGE_NAME }}-${{ env.TIMESTAMP }}
+          tags: |
+            ${{ env.IMAGE_NAME }}
+            ${{ env.IMAGE_NAME }}-${{ env.TIMESTAMP }}

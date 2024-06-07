@@ -26,7 +26,7 @@ jobs:
       - name: Set timestamp
         run: echo TIMESTAMP=$(date -u +%Y%m%d_%H%M%S) >> $GITHUB_ENV
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           platforms: linux/amd64,linux/arm64
           build-args: |

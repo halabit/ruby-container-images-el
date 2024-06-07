@@ -25,6 +25,8 @@ jobs:
         run: echo IMAGE_NAME=ameir/ruby:${{ matrix.version }}-$(echo ${{ matrix.image }} | tr ':' '-') >> $GITHUB_ENV
       - name: Set timestamp
         run: echo TIMESTAMP=$(date -u +%Y%m%d_%H%M%S) >> $GITHUB_ENV
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
